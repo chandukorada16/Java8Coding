@@ -115,11 +115,14 @@ public class Java26th {
                 .get();
         return oddSum;
     }
-    private static List<Integer> findDuplicateElements(List<Integer> list){
-        Set<Integer> set=new HashSet<>();
-        List<Integer> duplicates = list.stream()
-                .filter(i -> !set.add(i))
-                .collect(Collectors.toList());
+    private static Set<Integer> findDuplicateElements(List<Integer> list){
+       // Set<Integer> set=new HashSet<>();
+       // List<Integer> duplicates = list.stream()
+       //         .filter(i -> !set.add(i))
+       //         .collect(Collectors.toList());
+        Set<Integer> duplicates = list.stream()
+                .filter(i -> Collections.frequency(list, i) > 1)
+                .collect(Collectors.toSet());
         return duplicates;
     }
     private static List<String> findWordsStartingWithVowels(List<String> words){
