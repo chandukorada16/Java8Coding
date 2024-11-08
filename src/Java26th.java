@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.function.Function;
+import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -11,6 +12,9 @@ public class Java26th {
         int[] arrayNum ={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arr={9,6,6,6,1,8,2,6,7,9};
         String palindromeString="malayalam";
+        int no=5;
+        int inclusiveStart=10;
+        int inclusiveEnd=99;
         List<Integer> cubeNum = Arrays.asList(4, 5, 6, 7, 1, 2, 3);
         List<Double> decimalNum = Arrays.asList(2.32, 11.53, 7.95, 1.23, 88.25, 35.25);
         int num=15623;
@@ -67,6 +71,8 @@ public class Java26th {
         System.out.println(fibonacciRange());
         System.out.println(firstTenOddnumbers());
         System.out.println(lastElementOfGivenArray(backend));
+        printRandomNumbers(no,inclusiveStart,inclusiveEnd);
+        System.out.println(findNamesLengthMorethanFive(backend));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -184,6 +190,13 @@ public class Java26th {
                 .findFirst()
                 .get();
         return nonRepeatedCharacter;
+        /*for(Character ch:word.toCharArray()){
+            if(word.indexOf(ch)==word.lastIndexOf(ch)){
+                return ch;
+            }
+        }
+
+        return null;*/
     }
     private static Character firstRepeatedCharacter(String word){
         Character repeatedCharacter = word.chars()
@@ -341,6 +354,15 @@ public class Java26th {
     private static String lastElementOfGivenArray(List<String> backend){
         String lastElement = backend.stream().skip(backend.size() - 1).findFirst().get();
         return lastElement;
+    }
+    private static void printRandomNumbers(int no,int inclusiveStart,int inclusiveEnd){
+        Random random = new Random();
+        random.ints(no, inclusiveStart, inclusiveEnd).limit(no).forEach(System.out::println);
+    }
+
+    private static List<String> findNamesLengthMorethanFive(List<String> backend){
+        List<String> names = backend.stream().filter(i -> i.length() > 5).collect(Collectors.toList());
+        return names;
     }
 
 
