@@ -18,6 +18,7 @@ public class Java26th {
         List<Integer> cubeNum = Arrays.asList(4, 5, 6, 7, 1, 2, 3);
         List<Double> decimalNum = Arrays.asList(2.32, 11.53, 7.95, 1.23, 88.25, 35.25);
         int num=15623;
+        String str="welcome to practicelab";
         String name="String";
         String input = "abbc";
         String string = "ab12pq34";
@@ -73,6 +74,13 @@ public class Java26th {
         System.out.println(lastElementOfGivenArray(backend));
         printRandomNumbers(no,inclusiveStart,inclusiveEnd);
         System.out.println(findNamesLengthMorethanFive(backend));
+        System.out.println(longestWordInGivenString(str));
+        findOddAndEvenNumbersGivenList(list);
+        System.out.println(findStringHavingLengthMoreThan5Chars(words));
+        System.out.println(convertFirstCharacterToUpperCase(str));
+        System.out.println(printStringWithLength(backend));
+        calculateOperations(cubeNum);
+        System.out.println(frequencyCombineAllOfGivenListOfStrings(backend));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -364,6 +372,67 @@ public class Java26th {
         List<String> names = backend.stream().filter(i -> i.length() > 5).collect(Collectors.toList());
         return names;
     }
+
+    private static String longestWordInGivenString(String str){
+        String longestWord = Arrays.stream(str.split(" ")).max(Comparator.comparing(String::length)).get();
+        return longestWord;
+    }
+    
+    private static void findOddAndEvenNumbersGivenList(List<Integer> list){
+        Map<Boolean, List<Integer>> partion= list.stream()
+                .collect(Collectors.partitioningBy(num -> num % 2 == 1));
+        List<Integer> odd = partion.get(true);
+        List<Integer> even = partion.get(false);
+        System.out.println(odd);
+        System.out.println(even);
+    }
+
+    private static List<String> findStringHavingLengthMoreThan5Chars(List<String> words){
+        List<String> moreThan5Charcters = words.stream()
+                .filter(word -> word.length() > 5)
+                .collect(Collectors.toList());
+        return moreThan5Charcters;
+    }
+
+    private static String convertFirstCharacterToUpperCase(String str){
+        String firstUpper = Arrays.stream(str.split(" "))
+                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
+                .collect(Collectors.joining(" "));
+        return firstUpper;
+    }
+
+    private static List<String> printStringWithLength(List<String> backend){
+        List<String> stringWithLength = backend.stream().map(str -> str + "=" + str.length()).collect(Collectors.toList());
+        return stringWithLength;
+    }
+
+    private static void calculateOperations(List<Integer> cubeNum){
+        /*IntSummaryStatistics statistics = cubeNum.stream()
+                .collect(Collectors.summarizingInt(Integer::intValue));
+        System.out.println("Min Num "+statistics.getMin());
+        System.out.println("Max Num "+statistics.getMax());
+        System.out.println("Avg "+statistics.getAverage());
+        System.out.println("Sum "+statistics.getSum());
+        System.out.println("Count "+statistics.getCount());*/
+        int min = cubeNum.stream().mapToInt(Integer::intValue).min().getAsInt();
+        int max = cubeNum.stream().mapToInt(Integer::intValue).max().getAsInt();
+        double avg = cubeNum.stream().mapToInt(Integer::intValue).average().getAsDouble();
+        int sum=cubeNum.stream().mapToInt(Integer::intValue).sum();
+        long count= cubeNum.stream().mapToInt(Integer::intValue).count();
+        System.out.println(min);
+        System.out.println(max);
+        System.out.println(avg);
+        System.out.println(sum);
+        System.out.println(count);
+    }
+
+    private static Map<Character,Long> frequencyCombineAllOfGivenListOfStrings(List<String> backend){
+        Map<Character, Long> frequency = backend.stream().flatMapToInt(String::chars)
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return frequency;
+    }
+
 
 
 
