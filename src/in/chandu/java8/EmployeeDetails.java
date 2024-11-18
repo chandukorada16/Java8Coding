@@ -58,6 +58,7 @@ public class EmployeeDetails {
         System.out.println("Minimum Salary Of Each Department "+minSalaryEmpInEachDep(employeeList));
         System.out.println("Sum Of Age in All Employees in this Organization "+sumOfAge(employeeList));
         System.out.println("Average Of Age in All Employees in this Organization "+avgOfAge(employeeList));
+        System.out.println(avgOfDepBasedOnSalary(employeeList));
     }
 
     private static Map<String, Long> genderCount(List<Employee> employeeList) {
@@ -308,6 +309,11 @@ public class EmployeeDetails {
         Map<String, Double> maleFemaleAgeAvg = employeeList.stream()
                 .collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingInt(Employee::getAge)));
         return maleFemaleAgeAvg;
+    }
+
+    private static Map<String,Double> avgOfDepBasedOnSalary(List<Employee> employeeList){
+        Map<String, Double> avg = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
+        return avg;
     }
 
 }
