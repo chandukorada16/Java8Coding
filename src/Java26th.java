@@ -37,6 +37,11 @@ public class Java26th {
         List<String> backend = Arrays.asList("Java", "Python", "C#", "HTML", "Kotlin", "C++", "COBOL", "C");
         List<Integer> numbers = Arrays.asList(11, 18, 20, 24, 85, 66, 13);
         List<List<Integer>> concatstreams = Arrays.asList(list, numbers);
+        Map<String,Integer> map=new HashMap<>();
+        map.put("Apple",30);
+        map.put("Banana",15);
+        map.put("Orange",20);
+        map.put("Mango",10);
         System.out.println(removeDuplicatesList(list));
         System.out.println(removeDuplicatesArray(arrayNum));
         System.out.println(reverseOfName(name));
@@ -103,6 +108,10 @@ public class Java26th {
         System.out.println(printInReverseOrderBasedOnLength(s1));
         System.out.println(sortTheStringsAlphabetically(s1));
         System.out.println(numberOfRepeatedStrings(s7,no));
+        System.out.println(sortTheHashMapByValues(map));
+        System.out.println(sortTheHashMapByValuesInDesc(map));
+        System.out.println(sortTheValuesInAsc(map));
+        System.out.println(sortTheValuesInDesc(map));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -607,6 +616,53 @@ public class Java26th {
                 .map(entry -> entry.getKey())
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    private static  LinkedHashMap<String, Integer> sortTheHashMapByValues(Map<String,Integer> map){
+        LinkedHashMap<String, Integer> collect = map.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new
+                ));
+        return collect;
+    }
+
+    private static  Map<String, Integer> sortTheHashMapByValuesInDesc(Map<String,Integer> map){
+        Map<String, Integer> sortedMap = map.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, // Handle duplicate keys (not expected here)
+                        LinkedHashMap::new // Preserve insertion order
+                ));
+        return sortedMap;
+    }
+
+    private static Map<String,Integer> sortTheValuesInAsc(Map<String,Integer> map){
+        List<Map.Entry<String,Integer>> list=new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+
+        Map<String,Integer> sortedMap=new LinkedHashMap<>();
+        for(Map.Entry<String,Integer> entry:list){
+            sortedMap.put(entry.getKey(),entry.getValue());
+        }
+        return sortedMap;
+    }
+
+    private static Map<String,Integer> sortTheValuesInDesc(Map<String,Integer> map){
+        List<Map.Entry<String,Integer>> list=new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        Map<String,Integer> sortedMap=new LinkedHashMap<>();
+        for(Map.Entry<String,Integer> entry:list){
+            sortedMap.put(entry.getKey(),entry.getValue());
+        }
+        return sortedMap;
     }
 
 
