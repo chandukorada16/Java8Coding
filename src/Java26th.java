@@ -11,8 +11,16 @@ public class Java26th {
         int[] array={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arrayNum ={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arr={9,6,6,6,1,8,2,6,7,9};
+        int[] nums = {1, 2, 4, 5, 6};
+        String s7="I am preparing myself for MNC’s and companies and MNC’s";
+        String s5 = "I am preparing myself for MNC’s and companies";
+        String s6 = "and Product based companies and MNC’s";
+        String s1="I am preparing myself for MNC’s and Product based companies.";
+        String aadhar="1234 9567 9101";
+        String s = "ab12pq34";
+        String inp="ChaNdU";
         String palindromeString="malayalam";
-        int no=5;
+        int no=2;
         int inclusiveStart=10;
         int inclusiveEnd=99;
         List<Integer> cubeNum = Arrays.asList(4, 5, 6, 7, 1, 2, 3);
@@ -81,6 +89,20 @@ public class Java26th {
         System.out.println(printStringWithLength(backend));
         calculateOperations(cubeNum);
         System.out.println(frequencyCombineAllOfGivenListOfStrings(backend));
+        System.out.println(checkAadhar(aadhar));
+        System.out.println(convertAllSmallCharactersIntoCapitalCharacters(inp));
+        System.out.println(fitthLargestInGivenArray(array));
+        System.out.println(sumOfDigitsInGivenString(s));
+        System.out.println(findMissingNumber(nums));
+        printCharctersPattern(s1);
+        threeCharactersInEachLine(s1);
+        System.out.println(combineStrings(str,s1));
+        System.out.println(sortedOfTwoStrings(str,s1));
+        System.out.println(commonUniqueWordsInTwoStrings(s5,s6));
+        System.out.println(commonWordsInTwoStrings(s5,s6));
+        System.out.println(printInReverseOrderBasedOnLength(s1));
+        System.out.println(sortTheStringsAlphabetically(s1));
+        System.out.println(numberOfRepeatedStrings(s7,no));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -432,6 +454,166 @@ public class Java26th {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         return frequency;
     }
+
+    private static String checkAadhar(String aadhar){
+        if(aadhar.matches("[1-9][0-9]{3}[ ][0-9]{4}[ ][0-9]{4}")){
+            return "Valid Aadhar";
+        }else if(aadhar.matches("[1-9][0-9]{11}")){
+            return "Valid Aadhar";
+        }else{
+            return "Not a Valid Aadhar";
+        }
+    }
+
+    private static String convertAllSmallCharactersIntoCapitalCharacters(String inp){
+        String s1="";
+        for(int i=0;i<inp.length();i++){
+            char ch=inp.charAt(i);
+            if(ch>='a'&& ch<='z'){
+                s1=s1+(char)(ch-32);
+            }else if(ch>='A'&&ch<='Z'){
+                s1=s1+(char)(ch+32);
+            }else{
+                s1=s1+ch;
+            }
+        }
+        return s1;
+    }
+
+    private static Integer fitthLargestInGivenArray(int[] array){
+        Integer fifth = Arrays.stream(array)
+                .boxed()
+                .sorted(Comparator.reverseOrder())
+                .skip(4)
+                .findFirst()
+                .get();
+        return fifth;
+    }
+
+    private static Integer sumOfDigitsInGivenString(String s){
+        int sum = s.chars()
+                .filter(Character::isDigit)
+                .map(c -> c - '0').sum();
+        return sum;
+    }
+
+    public static int findMissingNumber(int[] nums) {
+        int n = nums.length + 1;  // n is the length of the array + 1 for the missing number
+        int expectedSum = n * (n + 1) / 2;  // Sum of first n natural numbers
+
+        // Use Stream API to calculate the actual sum of the elements in the array
+        int actualSum = Arrays.stream(nums).sum();
+
+        // The missing number is the difference between expected sum and actual sum
+        return expectedSum - actualSum;
+    }
+
+    private static void printCharctersPattern(String s1){
+        String combine = s1.replace(" ", "");
+
+        int currentIndex = 0; // Start at the beginning of the combined string
+
+        // Outer loop controls the chunk size (i)
+        for (int i = 1; currentIndex < combine.length(); i++) {
+            // Print i characters or until the end of the string
+            for (int j = 0; j < i && currentIndex + j < combine.length(); j++) {
+                System.out.print(combine.charAt(currentIndex + j));
+            }
+            System.out.println(); // Move to the next line
+            currentIndex += i; // Advance to the next chunk
+        }
+
+
+    }
+
+    private static void threeCharactersInEachLine(String s1){
+        String combine = s1.replace(" ", "");
+        // Iterate through the combined string in steps of 3 characters
+        for (int i = 0; i < combine.length(); i += 3) {
+            // Print 3 characters or the remaining characters
+            for (int j = 0; j < 3 && i + j < combine.length(); j++) {
+                System.out.print(combine.charAt(i + j));
+            }
+            System.out.println(); // Move to the next line
+        }
+
+    }
+
+    private static List<String> combineStrings(String str,String s1){
+        List<String> collect = Stream.of(str, s1).flatMap(s -> Arrays.stream(s.split(" ")))
+                .map(String::toLowerCase)
+                .distinct()
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+    private static List<String> sortedOfTwoStrings(String str,String s1){
+        List<String> sortedString = Stream.of(str, s1)
+                .flatMap(s -> Arrays.stream(s.split(" ")))
+                .map(String::toLowerCase)
+                .sorted().collect(Collectors.toList());
+        return sortedString;
+    }
+
+    private static Set<String> commonUniqueWordsInTwoStrings(String s5,String s6){
+        Set<String> commonWords = Arrays.stream(s5.split(" "))
+                .map(String::toLowerCase) // Normalize case
+                .filter(word -> Arrays.stream(s6.split(" "))
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toSet())
+                        .contains(word)) // Retain words that exist in s2
+                .collect(Collectors.toSet());
+        return commonWords;
+    }
+
+    private static List<String> commonWordsInTwoStrings(String s5,String s6){
+        List<String> words1 = Arrays.stream(s5.split(" "))
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        List<String> words2 = Arrays.stream(s6.split(" "))
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        // Find common words
+        List<String> commonWords = words1.stream()
+                .filter(words2::contains) // Retain words that are present in both lists
+                .collect(Collectors.toList());
+        return commonWords;
+    }
+
+    private static List<String> printInReverseOrderBasedOnLength(String s1){
+        List<String> collect = Stream.of(s1.split(" "))
+                .sorted(Comparator.comparing(String::length).reversed())
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+    private static List<String> sortTheStringsAlphabetically(String s1){
+        List<String> collect = Stream.of(s1.split(" "))
+                .map(String::toLowerCase)
+                .sorted()
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+    private static List<String> numberOfRepeatedStrings(String s7,int no){
+        List<String> collect = Arrays.stream(s7.split(" "))
+                .map(String::toLowerCase)
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == no)
+                .map(entry -> entry.getKey())
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+
+
+
+
+
 
 
 
