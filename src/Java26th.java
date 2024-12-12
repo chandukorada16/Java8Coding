@@ -12,6 +12,9 @@ public class Java26th {
         int[] arrayNum ={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arr={9,6,6,6,1,8,2,6,7,9};
         int[] nums = {1, 2, 4, 5, 6};
+        int[] digits={1,2,3};
+        int start=1;
+        int end=100;
         String s7="I am preparing myself for MNC’s and companies and MNC’s";
         String s5 = "I am preparing myself for MNC’s and companies";
         String s6 = "and Product based companies and MNC’s";
@@ -31,8 +34,8 @@ public class Java26th {
         String input = "abbc";
         String string = "ab12pq34";
         String word="Java articles are Awesome";
-        String word1="I am listener";
-        String word2="am listener I";
+        String word1="listen";
+        String word2="silenT";
         List<String> words=Arrays.asList("devarA","vara","tangam","Anvesh","Uva");
         List<String> backend = Arrays.asList("Java", "Python", "C#", "HTML", "Kotlin", "C++", "COBOL", "C");
         List<Integer> numbers = Arrays.asList(11, 18, 20, 24, 85, 66, 13);
@@ -112,6 +115,12 @@ public class Java26th {
         System.out.println(sortTheHashMapByValuesInDesc(map));
         System.out.println(sortTheValuesInAsc(map));
         System.out.println(sortTheValuesInDesc(map));
+        System.out.println(commonElementsInTwoLists(list,cubeNum));
+        System.out.println(checkPrime(no));
+        System.out.println(betweenRangePrimeNumbers(start,end));
+        System.out.println(nthPrimeNumbers(no));
+        int[] ints = plusOne(digits);
+        System.out.println(Arrays.toString(ints));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -155,7 +164,7 @@ public class Java26th {
     }
     private static Integer sumOfOddNumebrs(List<Integer> numbers){
         Integer oddSum = numbers.stream()
-                .filter(even -> even % 2 == 1)
+                .filter(odd -> odd % 2 == 1)
                 .reduce((a, b) -> a + b)
                 .get();
         return oddSum;
@@ -293,12 +302,16 @@ public class Java26th {
         return mergeArraysWithoutDup;
     }
     private static String checkAnagrams(String word1,String word2){
-        word1 = Stream.of(word1.split(" ")).map(String::toLowerCase).sorted().collect(Collectors.joining());
-        word2 = Stream.of(word2.split(" ")).map(String::toLowerCase).sorted().collect(Collectors.joining());
-        if(word1.equals(word2)){
-            return "Both are Anagrams";
-        }else{
+        if(word1.length()!=word2.length()){
             return "Both are Not Anagrams";
+        }else {
+            word1 = Stream.of(word1.split("")).map(String::toLowerCase).sorted().collect(Collectors.joining());
+            word2 = Stream.of(word2.split("")).map(String::toLowerCase).sorted().collect(Collectors.joining());
+            if (word1.equals(word2)) {
+                return "Both are Anagrams";
+            } else {
+                return "Both are Not Anagrams";
+            }
         }
     }
     private static int sumOfGivenNumber(int num){
@@ -367,12 +380,21 @@ public class Java26th {
 
     }
     private static String checkPalindrome(String palindromeString){
-        boolean checkPalin = IntStream.range(0, palindromeString.length() / 2)
+        /*boolean checkPalin = IntStream.range(0, palindromeString.length() / 2)
                 .noneMatch(i -> palindromeString.charAt(i) != palindromeString.charAt(palindromeString.length() - i - 1));
         if(checkPalin){
             return "Given String Palindrome";
         }else{
             return "Given String is Not Palindrome";
+        }*/
+        String rev="";
+        for(int i=palindromeString.length()-1;i>=0;i--){
+            rev=rev+palindromeString.charAt(i);
+        }
+        if(palindromeString.equals(rev)){
+            return "Valid Palindrome";
+        }else{
+            return "Not Palindrome";
         }
 
     }
@@ -502,7 +524,8 @@ public class Java26th {
     private static Integer sumOfDigitsInGivenString(String s){
         int sum = s.chars()
                 .filter(Character::isDigit)
-                .map(c -> c - '0').sum();
+                .map(c -> c - '0')
+                .sum();
         return sum;
     }
 
@@ -663,6 +686,81 @@ public class Java26th {
             sortedMap.put(entry.getKey(),entry.getValue());
         }
         return sortedMap;
+    }
+
+    private static List<Integer> commonElementsInTwoLists(List<Integer> list,List<Integer> cubeNum){
+        List<Integer> commonElements = list.stream()
+                .filter(cubeNum::contains)
+                .distinct()
+                .collect(Collectors.toList());
+        return commonElements;
+    }
+
+    private static String checkPrime(int no){
+        int fc=0;
+        for(int i=2;i<=no;i++){
+            if(no%i==0){
+                fc++;
+            }
+        }
+        if(fc==1){
+            return "Given Number is Prime";
+        }else{
+            return "Given Number is Not a Prime";
+        }
+    }
+
+    private static List<Integer> betweenRangePrimeNumbers(int start,int end){
+        List<Integer> list=new ArrayList<>();
+        for(int i=start;i<=end;i++){
+            int fc=0;
+            for(int j=1;j<=i;j++){
+                if(i%j==0){
+                    fc++;
+                }
+            }
+            if(fc==2){
+                list.add(i);
+            }
+        }
+        return list;
+    }
+
+    public static  List<Integer> nthPrimeNumbers(int no){
+        List<Integer> list=new ArrayList<>();
+        int count=0;
+        for(int i=1;;i++)
+        {
+            int fc=0;
+            for(int j=1;j<=i;j++)
+            {
+                if(i%j==0)
+                {
+                    fc++;
+                }
+            }
+            if(fc==2)
+            {
+                count++;
+                list.add(i);
+            }
+            if(count==no)
+                break;
+        }
+        return list;
+    }
+
+    public static int[] plusOne(int[] digits) {
+        for(int i=digits.length-1;i>=0;i--){
+            if(digits[i]<9){
+                digits[i]++;
+                return digits;
+            }
+            digits[i]=0;
+        }
+        digits=new int[digits.length+1];
+        digits[0]=1;
+        return digits;
     }
 
 
