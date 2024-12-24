@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 public class Java26th {
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(8, 2, 4, 7, 5, 9, 6, 7, 7, 5);
+        List<Integer> list1 = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 5, 5, 6);
         int[] array={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arrayNum ={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arr={9,6,6,6,1,8,2,6,7,9};
@@ -129,6 +130,7 @@ public class Java26th {
         System.out.println(winnerOfGame(erica,bob));
         System.out.println(sortTheNameByTheirLastName(cricketers));
         System.out.println(sortTheNameDescByTheirLastName(cricketers));
+        System.out.println(removeConsecutiveDuplicates(list1));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -816,7 +818,12 @@ public class Java26th {
 
     }
 
-    //
+    private static List<Integer> removeConsecutiveDuplicates(List<Integer> list1){
+       return IntStream.range(0,list1.size())
+                .filter(i->i==0 || !list1.get(i).equals(list1.get(i-1)))
+                .mapToObj(list1::get)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
 
 
