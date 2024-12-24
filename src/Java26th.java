@@ -23,9 +23,13 @@ public class Java26th {
         String s = "ab12pq34";
         String inp="ChaNdU";
         String palindromeString="malayalam";
+        String erica="EHM";
+        String bob="EEM";
         int no=2;
+        Object obj=null;
         int inclusiveStart=10;
         int inclusiveEnd=99;
+        List<String> cricketers=Arrays.asList("Sachin Tendulkar","Gautam Gambhir","Ricky Ponting","Shahid Afridi","MS Dhoni");
         List<Integer> cubeNum = Arrays.asList(4, 5, 6, 7, 1, 2, 3);
         List<Double> decimalNum = Arrays.asList(2.32, 11.53, 7.95, 1.23, 88.25, 35.25);
         int num=15623;
@@ -121,6 +125,10 @@ public class Java26th {
         System.out.println(nthPrimeNumbers(no));
         int[] ints = plusOne(digits);
         System.out.println(Arrays.toString(ints));
+        System.out.println(check(obj));
+        System.out.println(winnerOfGame(erica,bob));
+        System.out.println(sortTheNameByTheirLastName(cricketers));
+        System.out.println(sortTheNameDescByTheirLastName(cricketers));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -763,6 +771,52 @@ public class Java26th {
         return digits;
     }
     //
+
+    public static String check(Object obj){
+        return "chandu";
+    }
+    private static String winnerOfGame(String erica,String bob){
+        int er = 0;
+        int b = 0;
+        Map<Character,Integer> map=new HashMap<>();
+        map.put('E',1);
+        map.put('M',3);
+        map.put('H',5);
+
+        for(char c:erica.toUpperCase().toCharArray()){
+           er=er+map.getOrDefault(c,0);
+        }
+        for(char c:bob.toUpperCase().toCharArray()){
+            b=b+map.getOrDefault(c,0);
+        }
+        if (er > b) {
+            return "Erica";
+        } else if (er < b) {
+            return "Bob";
+        } else {
+            return "Tie";
+        }
+    }
+
+    private static List<String> sortTheNameByTheirLastName(List<String> cricketers){
+
+        List<String> collect = cricketers.stream()
+                .sorted(Comparator.comparing(name->name.split(" ")[1]))
+                .collect(Collectors.toList());
+        return collect;
+
+    }
+
+    private static List<String> sortTheNameDescByTheirLastName(List<String> cricketers){
+
+        List<String> collect = cricketers.stream()
+                .sorted(Comparator.comparing((String name) -> name.split(" ")[1]).reversed())
+                .collect(Collectors.toList());
+        return collect;
+
+    }
+
+
 
 
 
