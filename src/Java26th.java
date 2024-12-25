@@ -15,6 +15,7 @@ public class Java26th {
         int[] nums = {1, 2, 4, 5, 6};
         int[] digits={1,2,3};
         int start=1;
+        int number4=12345;
         int end=100;
         String s7="I am preparing myself for MNC’s and companies and MNC’s";
         String s5 = "I am preparing myself for MNC’s and companies";
@@ -27,6 +28,7 @@ public class Java26th {
         String erica="EHM";
         String bob="EEM";
         int no=2;
+        int numbe=1221;
         Object obj=null;
         int inclusiveStart=10;
         int inclusiveEnd=99;
@@ -131,6 +133,9 @@ public class Java26th {
         System.out.println(sortTheNameByTheirLastName(cricketers));
         System.out.println(sortTheNameDescByTheirLastName(cricketers));
         System.out.println(removeConsecutiveDuplicates(list1));
+        System.out.println(checkPalindromeNumber(numbe));
+        System.out.println(reverseOfNumber(number4));
+        System.out.println(countTheNumberOfDigits(number4));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -824,6 +829,41 @@ public class Java26th {
                 .mapToObj(list1::get)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    private static String checkPalindromeNumber(int numbe){
+        int orginal=numbe;
+        int rev=0;
+        while(numbe>0){
+            int digit=numbe%10;
+            numbe=numbe/10;
+            rev=rev*10+digit;
+        }
+        if(orginal==rev){
+            return "Palindrome Number";
+        }else{
+            return "Not a Palindrome Number";
+        }
+    }
+
+    private static int reverseOfNumber(int number4){
+        String reversedString = String.valueOf(number4)
+                .chars()
+                .mapToObj(c -> (char) c)
+                .reduce("", (reversed, ch) -> ch + reversed, (r1, r2) -> r2 + r1);
+        return Integer.parseInt(reversedString);
+    }
+
+    private static int countTheNumberOfDigits(int number4){
+        int count=0;
+        while (number4>0){
+            int digit=number4%10;
+            number4=number4/10;
+            count++;
+        }
+        return count;
+    }
+
+
 
 
 
