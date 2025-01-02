@@ -136,6 +136,7 @@ public class Java26th {
         System.out.println(checkPalindromeNumber(numbe));
         System.out.println(reverseOfNumber(number4));
         System.out.println(countTheNumberOfDigits(number4));
+        System.out.println(retrirePrimeNumbersInList(list));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -862,12 +863,25 @@ public class Java26th {
         }
         return count;
     }
-    // Daku Maharaj
-    //Game Changer
-    //Devara 2
-    //Pushpha The Rise
-    //NTRNEEL
-    //RRR 2
+
+    private static Set<Integer> retrirePrimeNumbersInList(List<Integer> list){
+        Set<Integer> primes = new HashSet<>();++
+        for (int num : list) {
+            if (num > 1) {
+                boolean isPrime = true;
+                for (int i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) {
+                    primes.add(num);
+                }
+            }
+        }
+        return primes;
+    }
 
 
 
