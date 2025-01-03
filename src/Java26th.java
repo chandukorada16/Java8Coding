@@ -10,6 +10,7 @@ public class Java26th {
         List<Integer> list = Arrays.asList(8, 2, 4, 7, 5, 9, 6, 7, 7, 5);
         List<Integer> list1 = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 5, 5, 6);
         int[] array={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
+        int[] arr4 = {0, 2, 0, 5, 7, 2, 0, 9};
         int[] arrayNum ={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arr={9,6,6,6,1,8,2,6,7,9};
         int[] nums = {1, 2, 4, 5, 6};
@@ -52,6 +53,7 @@ public class Java26th {
         map.put("Banana",15);
         map.put("Orange",20);
         map.put("Mango",10);
+        moveZerosToEnd(arr4);
         System.out.println(removeDuplicatesList(list));
         System.out.println(removeDuplicatesArray(arrayNum));
         System.out.println(reverseOfName(name));
@@ -137,6 +139,7 @@ public class Java26th {
         System.out.println(reverseOfNumber(number4));
         System.out.println(countTheNumberOfDigits(number4));
         System.out.println(retrirePrimeNumbersInList(list));
+        System.out.println(Arrays.toString(arr4));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -865,7 +868,7 @@ public class Java26th {
     }
 
     private static Set<Integer> retrirePrimeNumbersInList(List<Integer> list){
-        Set<Integer> primes = new HashSet<>();++
+        Set<Integer> primes = new HashSet<>();
         for (int num : list) {
             if (num > 1) {
                 boolean isPrime = true;
@@ -881,6 +884,20 @@ public class Java26th {
             }
         }
         return primes;
+    }
+
+    private static void moveZerosToEnd(int[] arr) {
+        int index = 0; // Position to place the next non-zero element
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                // Swap the elements to push zero to the end
+                int temp = arr[index];
+                arr[index] = arr[i];
+                arr[i] = temp;
+                index++;
+            }
+        }
     }
 
 
