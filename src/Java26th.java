@@ -18,6 +18,7 @@ public class Java26th {
         int start=1;
         int number4=12345;
         int end=100;
+        List<String> animals=Arrays.asList("dog","cat","elephant","rabbit","fox","giraffe","ant","zebra","owl");
         String s7="I am preparing myself for MNC’s and companies and MNC’s";
         String s5 = "I am preparing myself for MNC’s and companies";
         String s6 = "and Product based companies and MNC’s";
@@ -39,7 +40,7 @@ public class Java26th {
         int num=15623;
         String str="welcome to practicelab";
         String name="String";
-        String input = "abbc";
+        String input = "abBc";
         String string = "ab12pq34";
         String word="Java articles are Awesome";
         String word1="listen";
@@ -140,6 +141,8 @@ public class Java26th {
         System.out.println(countTheNumberOfDigits(number4));
         System.out.println(retrirePrimeNumbersInList(list));
         System.out.println(Arrays.toString(arr4));
+        System.out.println(countOfNumberOfStrings(animals));
+        countOfNumberOfStringsInJava7(animals);
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -162,8 +165,8 @@ public class Java26th {
     }
     private static Map<Character,Long> frequencyofEachCharacter(String input){
         Map<Character, Long> frequencyOfEachCha = input.chars()
-                .mapToObj(i -> (char) i)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                .mapToObj(c->Character.toLowerCase((char)c))
+                .collect(Collectors.groupingBy(c->c, Collectors.counting()));
         return frequencyOfEachCha;
     }
     private static List<Integer> numbersStartsWithOne(List<Integer> numbers){
@@ -897,6 +900,23 @@ public class Java26th {
                 arr[i] = temp;
                 index++;
             }
+        }
+    }
+
+    private static Map<Integer,Long> countOfNumberOfStrings(List<String> animals){
+        Map<Integer, Long> noOfStrings = animals.stream().collect(Collectors.groupingBy(String::length, Collectors.counting()));
+        //noOfStrings.forEach((length,coungt)-> System.out.println("Strings of the length "+length+" : "+coungt));
+        return noOfStrings;
+    }
+
+    private static void countOfNumberOfStringsInJava7(List<String> animals){
+        Map<Integer,Integer> map=new HashMap<>();
+        for(String str:animals){
+            int length = str.length();
+            map.put(length,map.getOrDefault(length,0)+1);
+        }
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            System.out.println("Strings of length "+entry.getKey()+" "+entry.getValue());
         }
     }
 
