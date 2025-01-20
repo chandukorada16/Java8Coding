@@ -17,6 +17,7 @@ public class Java26th {
         int[] digits={1,2,3};
         int start=1;
         int number4=12345;
+        String value="Hello world! Hello everyone! Hello All";
         int end=100;
         List<String> animals=Arrays.asList("dog","cat","elephant","rabbit","fox","giraffe","ant","zebra","owl");
         String s7="I am preparing myself for MNC’s and companies and MNC’s";
@@ -30,6 +31,7 @@ public class Java26th {
         String erica="EHM";
         String bob="EEM";
         int no=2;
+        String inputWord = "Hi Welcome to IVL";//op:-"IVL to Welcome Hi"
         int numbe=1221;
         Object obj=null;
         int inclusiveStart=10;
@@ -56,7 +58,7 @@ public class Java26th {
         map.put("Mango",10);
         moveZerosToEnd(arr4);
         System.out.println(removeDuplicatesList(list));
-        System.out.println(removeDuplicatesArray(arrayNum));
+        System.out.println(Arrays.toString(removeDuplicatesArray(arrayNum)));
         System.out.println(reverseOfName(name));
         System.out.println(frequencyofEachCharacter(input));
         System.out.println(numbersStartsWithOne(numbers));
@@ -143,6 +145,13 @@ public class Java26th {
         System.out.println(Arrays.toString(arr4));
         System.out.println(countOfNumberOfStrings(animals));
         countOfNumberOfStringsInJava7(animals);
+        System.out.println(occurnenceOfEachWord(value));
+        reverseOrderWords(inputWord);
+        reverseOrderWordsInJava8(inputWord);
+        System.out.println(printAlternativeCharactersInGivenString(string));
+        System.out.println(alternativeVowels(palindromeString));
+        System.out.println(reeverseOfNumber(number4));
+        System.out.println(reeverseOfNumberInJava8(number4));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -150,11 +159,10 @@ public class Java26th {
                                     .collect(Collectors.toList());
         return uniqueList;
     }
-    private static List<Integer> removeDuplicatesArray(int[] array){
-        List<Integer> uniqueArray = Arrays.stream(array)
-                .boxed()
+    private static int[] removeDuplicatesArray(int[] array){
+        int[] uniqueArray = Arrays.stream(array)
                 .distinct()
-                .collect(Collectors.toList());
+                .toArray();
         return uniqueArray;
     }
     private static String reverseOfName(String name){
@@ -919,6 +927,72 @@ public class Java26th {
             System.out.println("Strings of length "+entry.getKey()+" "+entry.getValue());
         }
     }
+
+    private static Map<String,Long> occurnenceOfEachWord(String value){
+       return Arrays.stream(value.split(" "))
+               .collect(Collectors.groupingBy(c->c,LinkedHashMap::new, Collectors.counting()));
+    }
+
+    private static void reverseOrderWords(String inputWord){
+        String[] s = inputWord.split(" ");
+        for(int i=s.length-1;i>=0;i--){
+            System.out.print(s[i]+" ");
+        }
+    }
+    private static void reverseOrderWordsInJava8(String inputWord){
+        String reduce = Arrays.stream(inputWord.split(" ")).reduce("", (a, b) -> b + " " + a);
+        System.out.println(reduce.trim());
+    }
+
+    private static String printAlternativeCharactersInGivenString(String string){
+        String altString="";
+        for(int i=0;i<string.length();i++){
+            if(i%2==1){
+                altString=altString+string.charAt(i);
+            }
+        }
+        return altString;
+    }
+
+    private static String alternativeVowels(String palindromeString){
+        String vowels = "AEIOUaeiou"; // List of vowels
+        StringBuilder result = new StringBuilder(); // To store the result
+        boolean pickVowel = true; // Toggle to pick alternate vowels
+
+        for (int i = 0; i < palindromeString.length(); i++) {
+            char currentChar = palindromeString.charAt(i);
+
+            // Check if the current character is a vowel
+            if (vowels.indexOf(currentChar) != -1) {
+                if (pickVowel) {
+                    result.append(currentChar); // Add the vowel to the result
+                }
+                pickVowel = !pickVowel; // Toggle the pick flag
+            }
+        }
+
+        return result.toString();
+    }
+
+    private static int reeverseOfNumber(int number4){
+        int rev=0;
+         while(number4>0){
+             int rem=number4%10;//5,4
+             number4=number4/10;//1234,123
+             rev=rev*10+rem;//54
+         }
+         return rev;
+    }
+    private static int reeverseOfNumberInJava8(int number4){
+
+        String string = new StringBuilder(String.valueOf(number4)).reverse().toString();
+
+        return Integer.parseInt(string);
+
+    }
+
+
+
 
 
 
