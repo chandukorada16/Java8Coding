@@ -10,12 +10,13 @@ public class Java26th {
         List<Integer> list = Arrays.asList(8, 2, 4, 7, 5, 9, 6, 7, 7, 5);
         List<Integer> list1 = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 5, 5, 6);
         int[] array={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
+        int k=12;
         int[] arr4 = {0, 2, 0, 5, 7, 2, 0, 9};
         int[] arrayNum ={8, 2, 4, 7, 5, 9, 6, 7, 7, 5};
         int[] arr={9,6,6,6,1,8,2,6,7,9};
         int[] nums = {1, 2, 4, 5, 6};
         int[] digits={1,2,3};
-        int start=1;
+        int start=4;
         int number4=12345;
         String value="Hello world! Hello everyone! Hello All";
         int end=100;
@@ -27,10 +28,12 @@ public class Java26th {
         String aadhar="1234 9567 9101";
         String s = "ab12pq34";
         String inp="ChaNdU";
+        String spl="He&ro@#6$M";//OP:- M$6#@or&eH
         String palindromeString="malayalam";
         String erica="EHM";
         String bob="EEM";
         int no=2;
+        int specificNumber=6;
         String inputWord = "Hi Welcome to IVL";//op:-"IVL to Welcome Hi"
         int numbe=1221;
         Object obj=null;
@@ -152,6 +155,13 @@ public class Java26th {
         System.out.println(alternativeVowels(palindromeString));
         System.out.println(reeverseOfNumber(number4));
         System.out.println(reeverseOfNumberInJava8(number4));
+        System.out.println(unchangingSplCharctersInReverse(spl));
+        System.out.println(java17Switch(start));
+        System.out.println(java17SwitchMultipleValues(start));
+        System.out.println(maxElementInGivenGivenArray(arr4));
+        System.out.println(minElementInGivenGivenArray(arr4));
+        System.out.println("count of particular element "+particularOccurenceCount(arr));
+        System.out.println(freqOfEachElementInList(list1));
     }
     private static List<Integer> removeDuplicatesList(List<Integer> list){
         List<Integer> uniqueList = list.stream()
@@ -990,6 +1000,56 @@ public class Java26th {
         return Integer.parseInt(string);
 
     }
+
+    private static String unchangingSplCharctersInReverse(String spl){
+        String collect = Stream.of(spl.split("")).map((word) -> new StringBuilder(word).reverse().toString()).reduce((a,b)->b+""+a).get();
+        return collect;
+    }
+
+
+    private static Integer java17Switch(int start){
+       Integer result= switch (start){
+            case 1-> 1;
+            case 2-> 2;
+            default -> 3;
+        };
+       return result;
+    }
+    private static String java17SwitchMultipleValues(int start){
+        String result= switch (start){
+            case 1-> "One";
+            case 2,3,4-> "Two";
+            default -> "Not Found";
+        };
+        return result;
+    }
+
+    private static int maxElementInGivenGivenArray(int[] arr4){
+        int max = Arrays.stream(arr4).max().getAsInt();
+        return max;
+
+    }
+    private static int minElementInGivenGivenArray(int[] arr4){
+        int min = Arrays.stream(arr4).min().getAsInt();
+        return min;
+
+    }
+
+    private static int particularOccurenceCount(int[] arr){
+        List<Integer> list = Arrays.stream(arr).boxed().toList();
+        int frequency = Collections.frequency(list, 6);
+        return frequency;
+    }
+
+    private static Map<Integer,Integer> freqOfEachElementInList(List<Integer> list1){
+        Map<Integer, Integer> freq = list1.stream().collect(Collectors.toMap(
+                number -> number,
+                number -> Collections.frequency(list1, number),
+                (existingValue, newValue) -> existingValue
+        ));
+        return freq;
+    }
+
 
 
 
